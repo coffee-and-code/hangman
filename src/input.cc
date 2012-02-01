@@ -1,8 +1,7 @@
 #ifndef INPUT_CC
 #define INPUT_CC
 
-#include <stdlib.h>
-#include <ctype.h>
+#include <stdio.h>
 
 #include "input.hh"
 
@@ -10,7 +9,12 @@ Input::Input() {
 }
 
 char Input::getChar() {
-	char ch = 'h';
+	char ch, dummy;
+
+	ch = getchar();
+
+	while ((dummy = getchar()) != '\n') {}
+
 	return ch;
 }
 
