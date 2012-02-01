@@ -3,7 +3,7 @@
 
 class GameState {
 public:
-	GameState(char *phrase);
+	GameState();
 	void guess(char ch);
 	~GameState();
 private:
