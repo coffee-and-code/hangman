@@ -7,6 +7,9 @@ public:
 	char getChar();
 	char *getString();
 	~Input();
+
+private:
+	void cleanString(char *string);
 };
 
 #endif

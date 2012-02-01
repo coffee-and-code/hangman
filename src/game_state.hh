@@ -8,6 +8,7 @@ public:
 	~GameState();
 private:
 	char *phrase;
+	char *hidden_phrase;
 };
 
 #endif

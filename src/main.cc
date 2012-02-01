@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 
 #include "game_state.hh"
 #include "input.hh"
@@ -18,7 +19,10 @@ int main(int argc, char *argv[]) {
 	while (true) {
 		printf("Guess a letter: ");
 		ch = input->getChar();
-		gameState->guess(ch);
+
+		if (isalpha(ch)) {
+			gameState->guess(ch);
+		}
 	}
 
 

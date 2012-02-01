@@ -16,6 +16,7 @@ char *Input::getString() {
 
 	string = (char *)malloc(sizeof(char) * MAX_STRING_LENGTH);
 	fgets(string, MAX_STRING_LENGTH, stdin);
+	this->cleanString(string);
 
 	return string;
 }
@@ -28,6 +29,11 @@ char Input::getChar() {
 	while ((dummy = getchar()) != '\n') {}
 
 	return ch;
+}
+
+void Input::cleanString(char *s) {
+	while (*s && *s != '\n' && *s != '\r') s++;
+	*s = 0;
 }
 
 Input::~Input() {
