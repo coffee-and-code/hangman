@@ -6,15 +6,7 @@
 
 #include "game_state.hh"
 
-int MAX_PHRASE_LENGTH = 256;
-
-GameState::GameState() {
-	char *phrase = NULL;
-
-	phrase = (char *)malloc(sizeof(char) * MAX_PHRASE_LENGTH);
-	printf("Enter the secret phrase:\n");
-	fgets(phrase, MAX_PHRASE_LENGTH, stdin);
-
+GameState::GameState(char *phrase) {
 	this->phrase = phrase;
 }
 

@@ -5,9 +5,15 @@
 #include "input.hh"
 
 int main(int argc, char *argv[]) {
-	int ch;
+	char ch;
 	Input *input = new Input();
-	GameState *gameState = new GameState();
+	GameState *gameState = NULL;
+	char *phrase = NULL;
+
+	printf("Enter the secret phrase:\n");
+	phrase = input->getString();
+
+	gameState = new GameState(phrase);
 
 	while (true) {
 		printf("Guess a letter: ");

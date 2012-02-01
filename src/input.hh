@@ -5,6 +5,7 @@ class Input {
 public:
 	Input();
 	char getChar();
+	char *getString();
 	~Input();
 };
 
