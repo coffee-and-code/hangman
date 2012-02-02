@@ -19,10 +19,7 @@ int main(int argc, char *argv[]) {
 	while (true) {
 		printf("Guess a letter: ");
 		ch = input->getChar();
-
-		if (isalpha(ch)) {
-			gameState->guess(ch);
-		}
+		gameState->guess(ch);
 	}
 
 

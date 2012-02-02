@@ -9,6 +9,8 @@ public:
 private:
 	char *phrase;
 	char *hidden_phrase;
+	char guessed[26];
+	int guessCount;
 };
 
 #endif
