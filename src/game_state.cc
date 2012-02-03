@@ -27,20 +27,18 @@ void GameState::guess(char ch) {
 	// add to guessed letters
 	// replace all occurrences in hidden string
 	//
-	// TODO: put addition to guessed array into separate function?
-	// TODO: add "alreadyGuessed(ch)" function
+	// TODO:
+	// 	- put addition to guessed array into separate function?
+	// 	- add "alreadyGuessed(ch)" function
+	// 	- handle duplicate guesses
 
 	if (isalpha(ch)) {
-		if (this->guessCount == 0) {
-			this->guessed[0] = ch;
-		} else {
-			for (int i = this->guessCount; i >= 0; i--) {
-				if (ch > this->guessed[i - 1] || i == 0) {
-					this->guessed[i] = ch;
-					break;
-				} else {
-					this->guessed[i] = this->guessed[i - 1];
-				}
+		for (int i = this->guessCount; i >= 0; i--) {
+			if (ch > this->guessed[i - 1] || i == 0) {
+				this->guessed[i] = ch;
+				break;
+			} else {
+				this->guessed[i] = this->guessed[i - 1];
 			}
 		}
 
