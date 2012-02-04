@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -Wall -c -g
-LDFLAGS = 
+LDFLAGS = -lncurses
 SRC = ./src
-SOURCES = $(SRC)/input.cc $(SRC)/game_state.cc $(SRC)/main.cc
+SOURCES = $(SRC)/output.cc $(SRC)/input.cc $(SRC)/game_state.cc $(SRC)/main.cc
 OBJECTS = $(SOURCES:.cc=.o)
 BIN = hangman
 

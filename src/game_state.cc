@@ -2,37 +2,57 @@
 #define GAME_STATE_CC
 
 #include <string.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 
 #include "game_state.hh"
+#include "output.hh"
+#include "input.hh"
 
-GameState::GameState(char *phrase) {
+GameState::GameState() {
 	this->guessCount = 0;
-	this->hidden_phrase = (char *)malloc(sizeof(char) * strlen(phrase));
-	this->phrase = phrase;
-	char *hidden_phrase = this->hidden_phrase;
+	this->output = new Output();
+	this->input = new Input();
 
-	for (char *cur = phrase; *cur != '\0'; cur++) {
-		*hidden_phrase = (*cur == ' ') ? ' ' : '_';
-
-		hidden_phrase++;
-	}
-
-	printf("%s\n", this->hidden_phrase);
+	this->init();
 }
 
 void GameState::guess(char ch) {
 	if (isalpha(ch) && !this->alreadyGuessed(ch)) {
 		this->insertGuess(ch);
+		this->updatePhrase();
 	}
+}
 
-	for (int i = 0; i < this->guessCount; i++) {
-		printf("%c, ", this->guessed[i]);
+
+void GameState::print() {
+	this->output->guesses(this->guessed, this->guessCount);
+	this->output->phrase(this->currentPhrase);
+	this->output->prompt("Guess a letter: ");
+	this->guess(this->input->getChar());
+}
+
+/****
+ * PRIVATE FUNCTIONS
+ */
+
+void GameState::init() {
+	this->output->prompt("Enter the secret phrase:");
+
+	this->phrase = input->getString();
+	this->currentPhrase = (char *)malloc(sizeof(char) * strlen(this->phrase));
+	this->updatePhrase();
+
+	this->print();
+}
+
+void GameState::updatePhrase() {
+	char *currentPhrase = this->currentPhrase;
+
+	for (char *cur = this->phrase; *cur != '\0'; cur++) {
+		*currentPhrase = (this->alreadyGuessed(*cur)) ? *cur : '_';
+		currentPhrase++;
 	}
-
-	printf("\n");
 }
 
 void GameState::insertGuess(char ch) {
@@ -60,8 +80,9 @@ bool GameState::alreadyGuessed(char ch) {
 
 GameState::~GameState() {
 	free(this->phrase);
-	free(this->hidden_phrase);
+	free(this->currentPhrase);
 	free(this->guessed);
+	free(this->output);
 }
 
 #endif

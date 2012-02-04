@@ -3,23 +3,12 @@
 #include <ctype.h>
 
 #include "game_state.hh"
-#include "input.hh"
 
 int main(int argc, char *argv[]) {
-	char ch;
-	Input *input = new Input();
-	GameState *gameState = NULL;
-	char *phrase = NULL;
-
-	printf("Enter the secret phrase:\n");
-	phrase = input->getString();
-
-	gameState = new GameState(phrase);
+	GameState *gameState = new GameState();
 
 	while (true) {
-		printf("Guess a letter: ");
-		ch = input->getChar();
-		gameState->guess(ch);
+		gameState->print();
 	}
 
 
