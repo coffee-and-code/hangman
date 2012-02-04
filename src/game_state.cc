@@ -24,25 +24,8 @@ GameState::GameState(char *phrase) {
 }
 
 void GameState::guess(char ch) {
-	// add to guessed letters
-	// replace all occurrences in hidden string
-	//
-	// TODO:
-	// 	- put addition to guessed array into separate function?
-	// 	- add "alreadyGuessed(ch)" function
-	// 	- handle duplicate guesses
-
-	if (isalpha(ch)) {
-		for (int i = this->guessCount; i >= 0; i--) {
-			if (ch > this->guessed[i - 1] || i == 0) {
-				this->guessed[i] = ch;
-				break;
-			} else {
-				this->guessed[i] = this->guessed[i - 1];
-			}
-		}
-
-		this->guessCount++;
+	if (isalpha(ch) && !this->alreadyGuessed(ch)) {
+		this->insertGuess(ch);
 	}
 
 	for (int i = 0; i < this->guessCount; i++) {
@@ -50,6 +33,29 @@ void GameState::guess(char ch) {
 	}
 
 	printf("\n");
+}
+
+void GameState::insertGuess(char ch) {
+	for (int i = this->guessCount; i >= 0; i--) {
+		if (ch > this->guessed[i - 1] || i == 0) {
+			this->guessed[i] = ch;
+			break;
+		} else {
+			this->guessed[i] = this->guessed[i - 1];
+		}
+	}
+
+	this->guessCount++;
+}
+
+bool GameState::alreadyGuessed(char ch) {
+	for (int i = 0; i < this->guessCount; i++) {
+		if (this->guessed[i] == ch) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 GameState::~GameState() {

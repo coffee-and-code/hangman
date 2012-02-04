@@ -11,6 +11,9 @@ private:
 	char *hidden_phrase;
 	char guessed[26];
 	int guessCount;
+
+	void insertGuess(char ch);
+	bool alreadyGuessed(char ch);
 };
 
 #endif
