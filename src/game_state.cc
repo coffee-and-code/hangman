@@ -6,13 +6,11 @@
 #include <ctype.h>
 
 #include "game_state.hh"
-#include "output.hh"
-#include "input.hh"
+#include "io.hh"
 
-GameState::GameState() {
+GameState::GameState(Mode mode) {
 	this->guessCount = 0;
-	this->output = new Output();
-	this->input = new Input();
+	this->io = new IO(mode);
 
 	this->init();
 }
@@ -26,10 +24,10 @@ void GameState::guess(char ch) {
 
 
 void GameState::print() {
-	this->output->guesses(this->guessed, this->guessCount);
-	this->output->phrase(this->currentPhrase);
-	this->output->prompt("Guess a letter: ");
-	this->guess(this->input->getChar());
+	this->io->putGuesses(this->guessed, this->guessCount);
+	this->io->putPhrase(this->currentPhrase);
+	this->io->putPrompt("Guess a letter: ");
+	this->guess(this->io->getChar());
 }
 
 /****
@@ -37,9 +35,9 @@ void GameState::print() {
  */
 
 void GameState::init() {
-	this->output->prompt("Enter the secret phrase:");
+	this->io->putPrompt("Enter the secret phrase:");
 
-	this->phrase = input->getString();
+	this->phrase = this->io->getString();
 	this->currentPhrase = (char *)malloc(sizeof(char) * strlen(this->phrase));
 	this->updatePhrase();
 
@@ -82,7 +80,7 @@ GameState::~GameState() {
 	free(this->phrase);
 	free(this->currentPhrase);
 	free(this->guessed);
-	free(this->output);
+	free(this->io);
 }
 
 #endif

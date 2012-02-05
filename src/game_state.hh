@@ -1,17 +1,15 @@
 #ifndef GAME_STATE_HH
 #define GAME_STATE_HH
 
-#include "output.hh"
-#include "input.hh"
+#include "io.hh"
 
 class GameState {
 public:
-	GameState();
+	GameState(Mode mode);
 	void print();
 	~GameState();
 private:
-	Output *output;
-	Input *input;
+	IO *io;
 	char *phrase;
 	char *currentPhrase;
 	char guessed[26];

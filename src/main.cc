@@ -1,11 +1,18 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include <ctype.h>
 
 #include "game_state.hh"
 
 int main(int argc, char *argv[]) {
-	GameState *gameState = new GameState();
+	enum Mode mode = terminal;
+
+	if (argc > 1 && strcmp(argv[1], "curses") == 0) {
+		mode = curses;
+	}
+
+	GameState *gameState = new GameState(mode);
 
 	while (true) {
 		gameState->print();
