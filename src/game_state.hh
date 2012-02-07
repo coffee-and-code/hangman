@@ -5,7 +5,7 @@
 
 class GameState {
 public:
-	GameState(Mode mode);
+	GameState(IO *io);
 	void print();
 	~GameState();
 private:

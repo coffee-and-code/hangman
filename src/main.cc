@@ -4,15 +4,20 @@
 #include <ctype.h>
 
 #include "game_state.hh"
+#include "io.hh"
+#include "curses.hh"
+#include "terminal.hh"
 
 int main(int argc, char *argv[]) {
-	enum Mode mode = terminal;
+	IO *io;
 
 	if (argc > 1 && strcmp(argv[1], "curses") == 0) {
-		mode = curses;
+		io = new Curses();
+	} else {
+		io = new Terminal();
 	}
 
-	GameState *gameState = new GameState(mode);
+	GameState *gameState = new GameState(io);
 
 	while (true) {
 		gameState->print();

@@ -8,9 +8,9 @@
 #include "game_state.hh"
 #include "io.hh"
 
-GameState::GameState(Mode mode) {
+GameState::GameState(IO *io) {
 	this->guessCount = 0;
-	this->io = new IO(mode);
+	this->io = io;
 
 	this->init();
 }
