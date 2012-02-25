@@ -9,6 +9,10 @@ class Curses: public IO {
 public:
 	Curses();
 
+	// utilities
+	void clearScreen();
+	void test();
+
 	// output functions
 	void putPrompt(const char *prompt);
 	void putPhrase(const char *phrase);
@@ -21,6 +25,8 @@ public:
 	~Curses();
 private:
 	WINDOW *window;
+	int col;
+	int row;
 };
 
 #endif

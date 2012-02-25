@@ -7,32 +7,43 @@
 
 #include "game_state.hh"
 #include "io.hh"
+#include "utils.hh"
 
 GameState::GameState(IO *io) {
+	this->state = 0;
 	this->guessCount = 0;
 	this->io = io;
 
 	this->init();
 }
 
-void GameState::guess(char ch) {
-	if (isalpha(ch) && !this->alreadyGuessed(ch)) {
-		this->insertGuess(ch);
-		this->updatePhrase();
+void GameState::run() {
+	char guess = '\0';
+
+	while (guess != 'Q') {
+		this->io->clearScreen();
+		this->io->printGallows(this->state);
+		this->io->putGuesses(this->guessed, this->guessCount);
+		this->io->putPhrase(this->currentPhrase);
+		this->io->putPrompt("Guess a letter: ");
+
+		guess = this->io->getChar();
+
+		this->guess(guess);
 	}
-}
-
-
-void GameState::print() {
-	this->io->putGuesses(this->guessed, this->guessCount);
-	this->io->putPhrase(this->currentPhrase);
-	this->io->putPrompt("Guess a letter: ");
-	this->guess(this->io->getChar());
 }
 
 /****
  * PRIVATE FUNCTIONS
  */
+
+void GameState::guess(char ch) {
+	if (isalpha(ch) && !this->alreadyGuessed(ch)) {
+		this->updateState(ch);
+		this->insertGuess(ch);
+		this->updatePhrase();
+	}
+}
 
 void GameState::init() {
 	this->io->putPrompt("Enter the secret phrase:");
@@ -40,15 +51,19 @@ void GameState::init() {
 	this->phrase = this->io->getString();
 	this->currentPhrase = (char *)malloc(sizeof(char) * strlen(this->phrase));
 	this->updatePhrase();
+}
 
-	this->print();
+void GameState::updateState(char ch) {
+	if (strchr(this->phrase, ch) == NULL) {
+		this->state++;
+	}
 }
 
 void GameState::updatePhrase() {
 	char *currentPhrase = this->currentPhrase;
 
 	for (char *cur = this->phrase; *cur != '\0'; cur++) {
-		*currentPhrase = (this->alreadyGuessed(*cur)) ? *cur : '_';
+		*currentPhrase = (this->alreadyGuessed(*cur) || *cur == ' ') ? *cur : '_';
 		currentPhrase++;
 	}
 }
@@ -80,7 +95,7 @@ GameState::~GameState() {
 	free(this->phrase);
 	free(this->currentPhrase);
 	free(this->guessed);
-	free(this->io);
+	delete(this->io);
 }
 
 #endif

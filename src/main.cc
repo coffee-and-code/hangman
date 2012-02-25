@@ -17,12 +17,12 @@ int main(int argc, char *argv[]) {
 		io = new Terminal();
 	}
 
-	GameState *gameState = new GameState(io);
-
-	while (true) {
-		gameState->print();
+	if (argc > 2 && strcmp(argv[2], "test") == 0) {
+		io->test();
+	} else {
+		GameState *gameState = new GameState(io);
+		gameState->run();
 	}
-
 
 	// get secret phrase
 	// clear screen

@@ -8,6 +8,82 @@
 
 #include "terminal.hh"
 
+void Terminal::clearScreen() {}
+
+void Terminal::test() {
+	this->putPrompt("Enter a message: ");
+	char *str = this->getString();
+	this->putPhrase("you said:");
+	this->putPhrase(str);
+}
+
+void Terminal::printGallows(int state) {
+	switch (state) {
+		case 0:
+			printf("+---+---\n");
+			printf("|   |	\n");
+			printf("|   	\n");
+			printf("|   	\n");
+			printf("|   	\n");
+			printf("+-------\n");
+			break;
+		
+		case 1:
+			printf("+---+---\n");
+			printf("|   |	\n");
+			printf("|   0	\n");
+			printf("|   	\n");
+			printf("|   	\n");
+			printf("+-------\n");
+			break;
+
+		case 2:
+			printf("+---+---\n");
+			printf("|   |	\n");
+			printf("|   0	\n");
+			printf("|   |	\n");
+			printf("|   	\n");
+			printf("+-------\n");
+			break;
+		
+		case 3:
+			printf("+---+---\n");
+			printf("|   |	\n");
+			printf("|   0	\n");
+			printf("|  /|	\n");
+			printf("|   	\n");
+			printf("+-------\n");
+			break;
+		
+		case 4:
+			printf("+---+---\n");
+			printf("|   |	\n");
+			printf("|   0	\n");
+			printf("|  /|\\	\n");
+			printf("|   	\n");
+			printf("+-------\n");
+			break;
+		
+		case 5:
+			printf("+---+---\n");
+			printf("|   |	\n");
+			printf("|   0	\n");
+			printf("|  /|\\	\n");
+			printf("|  / 	\n");
+			printf("+-------\n");
+			break;
+
+		case 6:
+			printf("+---+---\n");
+			printf("|   |	\n");
+			printf("|   0	\n");
+			printf("|  /|\\	\n");
+			printf("|  / \\	\n");
+			printf("+-------\n");
+			break;
+	}
+}
+
 void Terminal::putPrompt(const char *prompt) {
 	printf("%s\n", prompt);
 }
